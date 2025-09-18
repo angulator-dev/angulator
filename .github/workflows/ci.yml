@@ -37,6 +37,6 @@ jobs:
           mv angulator-angulator-0.0.1.tgz ../../angulator-angulator-0.0.1.tgz
 
       - name: Run Schematics Integration Test
-        uses: ./.github/workflows/test-schematics.yml
+        uses: ./.github/workflows/test-schematics.yml@${{ github.sha }}
         with:
           packed-library-path: angulator-angulator-001.tgz
