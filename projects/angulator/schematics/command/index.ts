@@ -29,6 +29,7 @@ export function command(_options: any): Rule {
         });
         return tree;
       },
+      move('src/app/commands'),
     ]);
 
     return mergeWith(sourceParametrizedTemplates)(tree, _context);

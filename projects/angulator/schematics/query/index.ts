@@ -6,6 +6,7 @@ import {
   apply,
   template,
   mergeWith,
+  move,
 } from '@angular-devkit/schematics';
 import { strings } from '@angular-devkit/core';
 
@@ -28,6 +29,7 @@ export function query(_options: any): Rule {
         });
         return tree;
       },
+      move('src/app/queries'),
     ]);
 
     return mergeWith(sourceParametrizedTemplates)(tree, _context);
