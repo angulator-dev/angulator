@@ -43,6 +43,18 @@ jobs:
       - name: Test
         run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadless
 
+      - name: Build and Pack Library for Schematics Test
+        run: |
+          cd angulator/projects/angulator
+          npm run build
+          npm pack
+          mv angulator-angulator-0.0.1.tgz ../../../angulator/angulator-angulator-0.0.1.tgz
+
+      - name: Run Schematics Integration Test
+        uses: ./.github/workflows/test-schematics.yml
+        with:
+          packed-library-path: angulator/angulator-angulator-0.0.1.tgz
+
       - name: Configure Git
         run: |
           git config --global user.name "github-actions[bot]"

@@ -1,0 +1,55 @@
+name: Test Schematics Reusable Workflow
+
+on:
+  workflow_call:
+    inputs:
+      packed-library-path:
+        required: true
+        type: string
+        description: 'Path to the packed library .tgz file'
+
+jobs:
+  test_schematics:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Create temporary test environment
+        run: |
+          # Create a temporary directory for the test project outside the workspace
+          mkdir -p /tmp/schematic-test-env
+          cd /tmp/schematic-test-env
+
+          # Install Angular CLI globally for the test project
+          npm install -g @angular/cli
+
+          # Create a new Angular project
+          ng new schematic-app --no-create-application --skip-git --skip-install --collection=@angular/cli
+
+          # Navigate into the new project
+          cd schematic-app
+
+          # Install dependencies for the new project
+          npm install
+
+          # Copy the packed library into the test project
+          cp ${{ github.workspace }}/${{ inputs.packed-library-path }} .
+
+          # Get the filename of the packed library
+          PACKED_LIB_FILENAME=$(basename ${{ inputs.packed-library-path }})
+
+          # Install the packed angulator library
+          npm install "./${PACKED_LIB_FILENAME}"
+
+          # Run the schematic (assuming 'command' schematic exists)
+          ng generate @angulator/angulator:command my-command
+
+          # Verify the schematic created a file (adjust this based on what 'command' schematic actually generates)
+          # For example, if it creates src/app/my-command/my-command.component.ts
+          ls src/app/my-command/my-command.component.ts
