@@ -1,0 +1,10 @@
+import { IRequestHandler } from '../../lib/request-handler.interface';
+import { <%= classify(name) %>Query, <%= classify(name) %>Response } from './<%= dasherize(name) %>.query';
+import { RequestHandler } from '../../lib/request-handler.decorator';
+
+@RequestHandler(<%= classify(name) %>Query)
+export class <%= classify(name) %>Handler implements IRequestHandler<<%= classify(name) %>Query, <%= classify(name) %>Response> {
+  handle(request: <%= classify(name) %>Query): <%= classify(name) %>Response {
+    return new <%= classify(name) %>Response(request.id, `Hello ${request.id}`);
+  }
+}

@@ -1,0 +1,5 @@
+import { IRequest } from '../../lib/request.interface';
+
+export class <%= classify(name) %>Command implements IRequest<void> {
+  constructor(public readonly id: number) {}
+}

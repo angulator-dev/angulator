@@ -1,0 +1,9 @@
+import { IRequest } from '../../lib/request.interface';
+
+export class <%= classify(name) %>Query implements IRequest<<%= classify(name) %>Response> {
+  constructor(public readonly id: number) {}
+}
+
+export class <%= classify(name) %>Response {
+  constructor(public readonly id: number, public readonly name: string) {}
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "query": {
+      "description": "A schematic to generate a query and its handler.",
+      "factory": "./query/index#query"
+    },
+    "command": {
+      "description": "A schematic to generate a command and its handler.",
+      "factory": "./command/index#command"
+    }
+  }
+}

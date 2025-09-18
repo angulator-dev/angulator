@@ -1,0 +1,10 @@
+import { IRequestHandler } from '../../lib/request-handler.interface';
+import { <%= classify(name) %>Command } from './<%= dasherize(name) %>.command';
+import { RequestHandler } from '../../lib/request-handler.decorator';
+
+@RequestHandler(<%= classify(name) %>Command)
+export class <%= classify(name) %>Handler implements IRequestHandler<<%= classify(name) %>Command, void> {
+  handle(request: <%= classify(name) %>Command): void {
+    console.log(`Hello ${request.id}`);
+  }
+}
