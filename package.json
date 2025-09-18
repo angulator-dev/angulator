@@ -1,6 +1,6 @@
 {
-  "name": "@angulator/angulator",
-  "version": "0.0.7",
+  "name": "angulator",
+  "version": "0.0.9",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
