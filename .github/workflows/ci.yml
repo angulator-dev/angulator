@@ -28,3 +28,43 @@ jobs:
 
       - name: Test
         run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadless
+
+      - name: Test Schematics
+        run: |
+          # Create a temporary directory for the test project
+          mkdir temp-schematic-test
+          cd temp-schematic-test
+
+          # Install Angular CLI globally for the test project
+          npm install -g @angular/cli
+
+          # Create a new Angular project
+          ng new schematic-app --no-create-application --skip-git --skip-install --collection=@angular/cli
+
+          # Navigate into the new project
+          cd schematic-app
+
+          # Install dependencies for the new project
+          npm install
+
+          # Go back to the root of the angulator project to pack the library
+          cd ../../angulator/projects/angulator
+
+          # Pack the angulator library
+          npm pack
+
+          # Move the packed library to the schematic-app
+          mv angulator-angulator-0.0.1.tgz ../../../temp-schematic-test/schematic-app/
+
+          # Go back to the schematic-app
+          cd ../../../temp-schematic-test/schematic-app/
+
+          # Install the packed angulator library
+          npm install angulator-angulator-0.0.1.tgz
+
+          # Run the schematic (assuming 'command' schematic exists)
+          ng generate @angulator/angulator:command my-command
+
+          # Verify the schematic created a file (adjust this based on what 'command' schematic actually generates)
+          # For example, if it creates src/app/my-command/my-command.component.ts
+          ls src/app/my-command/my-command.component.ts
