@@ -49,7 +49,10 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global url."https://github.com/".insteadOf "git@github.com:"
 
-      - name: Stage changes
+      - name: Check git status for debugging
+        run: git status
+
+      - name: Stage package file changes
         run: git add package.json package-lock.json
 
       - name: Increment version and push
