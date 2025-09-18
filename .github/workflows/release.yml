@@ -37,8 +37,10 @@ jobs:
       - name: Copy README to library folder
         run: cp README.md projects/angulator/
 
-      - name: Build
-        run: npm run build -- --configuration production
+      - name: Build library and schematics
+        run: |
+          npm run build -- --configuration production
+          (cd projects/angulator && npm run build:schematics)
 
       - name: Test
         run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadless
