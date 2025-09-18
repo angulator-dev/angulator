@@ -31,6 +31,9 @@ jobs:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org'
 
+      - name: Set repository URL in package.json
+        run: npm pkg set repository.url="https://github.com/${{ github.repository }}.git"
+
       - name: Install Dependencies
         run: npm ci
 
