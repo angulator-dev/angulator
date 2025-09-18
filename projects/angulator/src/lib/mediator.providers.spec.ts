@@ -82,7 +82,7 @@ describe('provideMediator', () => {
   describe('when called with an empty array', () => {
     it('should return only the map providers with empty maps', () => {
       const providers = provideMediator([]);
-      expect(providers.length).toBe(2);
+      expect(providers.length).toBe(3);
 
       const requestMapProvider = providers.find(
         (p) => (p as any).provide === REQUEST_HANDLER_MAP
