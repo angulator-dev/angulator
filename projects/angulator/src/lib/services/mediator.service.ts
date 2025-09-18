@@ -4,7 +4,7 @@ import {
   PIPELINE_BEHAVIORS,
   REQUEST_HANDLER_MAP,
 } from '../injection-tokens';
-import { from, isObservable, Observable, of } from 'rxjs';
+import { firstValueFrom, from, isObservable, Observable, of } from 'rxjs';
 import { IRequestHandler, RequestHandlerType } from '../interfaces/request-handler.interface';
 import { IRequest, RequestConstructor } from '../interfaces/request.interface';
 import { IPipelineBehavior } from '../interfaces/pipeline-behavior.interface';
@@ -27,19 +27,8 @@ export class Mediator {
     private readonly injector: Injector
   ) {}
 
-  send<TResponse>(request: IRequest<TResponse>): Observable<TResponse> {
-    const handlerType = this.requestHandlerMap.get(
-      request.constructor as RequestConstructor<TResponse>
-    );
-
-    if (!handlerType) {
-      throw new Error(`No handler found for request: ${request.constructor.name}`);
-    }
-
-    const handler = this.injector.get(handlerType) as IRequestHandler<
-      IRequest<TResponse>,
-      TResponse
-    >;
+  public send<TResponse>(request: IRequest<TResponse>): Observable<TResponse> {
+    const handler = this.getHandler<TResponse>(request);
 
     const handle = () => {
       const result = handler.handle(request);
@@ -60,7 +49,31 @@ export class Mediator {
     return pipeline();
   }
 
-  publish(notification: INotification): void {
+  public async sendAsync<TResponse>(request: IRequest<TResponse>): Promise<TResponse> {
+    return await firstValueFrom(this.send(request));
+  }
+
+  public sendSimple<TResponse>(request: IRequest<TResponse>): TResponse {
+    const handler = this.getHandler<TResponse>(request);
+
+    const handle = () => handler.handle(request);
+
+    const pipeline = (this.pipelineBehaviors || []).reduceRight(
+      (next, behavior) => () => behavior.handle(request, next),
+      handle
+    );
+
+    const result = pipeline();
+
+    // NOTE: This error is not meant to stop execution, but to be a guard for developers against using this method with asynchronous handlers
+    if (isObservable(result) || result instanceof Promise) {
+      throw new Error('sendSimple can only be used with synchronous handlers');
+    }
+
+    return result as TResponse;
+  }
+
+  public publish(notification: INotification): void {
     const handlerTypes = this.notificationHandlerMap.get(
       notification.constructor as new (...args: any[]) => INotification
     );
@@ -71,5 +84,24 @@ export class Mediator {
         handler.handle(notification);
       });
     }
+  }
+
+  private getHandler<TResponse>(
+    request: IRequest<TResponse>
+  ): IRequestHandler<IRequest<TResponse>, TResponse> {
+    const handlerType = this.requestHandlerMap.get(
+      request.constructor as RequestConstructor<TResponse>
+    );
+
+    if (!handlerType) {
+      throw new Error(`No handler found for request: ${request.constructor.name}`);
+    }
+
+    const handler = this.injector.get(handlerType) as IRequestHandler<
+      IRequest<TResponse>,
+      TResponse
+    >;
+
+    return handler;
   }
 }
