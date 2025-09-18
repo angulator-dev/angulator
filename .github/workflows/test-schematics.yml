@@ -55,5 +55,7 @@ jobs:
           # Run the schematic (assuming 'command' schematic exists)
           ng generate @angulator/angulator:command my-command
 
-          cat my-command.handler.ts.template
-          cat my-command.command.ts.template
+          # Run TypeScript compiler to check for syntactic validity
+          echo "Running tsc on generated files..."
+          ./node_modules/.bin/tsc my-command.handler.ts.template my-command.command.ts.template --noEmit
+          echo "TypeScript compilation successful."
