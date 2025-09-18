@@ -57,6 +57,11 @@ jobs:
       - name: Set repository URL in distributable package.json
         run: npm pkg --prefix dist/angulator set repository.url="https://github.com/${{ github.repository }}.git"
 
+      - name: Sync version to distributable package.json
+        run: |
+          NEW_VERSION=$(node -p "require('./package.json').version")
+          npm pkg --prefix dist/angulator set version=$NEW_VERSION
+
       - name: Publish to npm
         run: |
           cd dist/angulator
