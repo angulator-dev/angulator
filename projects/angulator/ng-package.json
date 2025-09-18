@@ -6,6 +6,7 @@
   },
   "assets": [
     "schematics/**/*.json",
+    "schematics/**/*.js",
     "schematics/**/files/**"
   ]
 }
