@@ -43,7 +43,7 @@ jobs:
           path: angulator-angulator-001.tgz
 
   schematics_test:
-    needs: release
+    needs: build_and_test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
