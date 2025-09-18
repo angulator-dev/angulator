@@ -18,7 +18,7 @@ Angulator is a lightweight Angular [mediator](https://refactoring.guru/design-pa
 To install Angulator, run:
 
 ```bash
-npm install angulator
+npm install @angulator/angulator
 ```
 
 ## Usage
@@ -30,7 +30,7 @@ In your `AppModule` or any feature module, use the `provideMediator` function to
 ```typescript
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { provideMediator } from 'angulator';
+import { provideMediator } from '@angulator/angulator';
 import { MyQueryHandler } from './my-query.handler';
 import { MyCommandHandler } from './my-command.handler';
 
@@ -51,7 +51,7 @@ export class AppModule {}
 
 ```typescript
 // my-query.query.ts
-import { IRequest } from 'angulator';
+import { IRequest } from '@angulator/angulator';
 
 export class MyQuery implements IRequest<MyQueryResponse> {
   constructor(public readonly id: number) {}
@@ -66,7 +66,7 @@ export class MyQueryResponse {
 
 ```typescript
 // my-query.handler.ts
-import { IRequestHandler, RequestHandler } from 'angulator';
+import { IRequestHandler, RequestHandler } from '@angulator/angulator';
 import { MyQuery, MyQueryResponse } from './my-query.query';
 import { Observable, of } from 'rxjs';
 
@@ -84,7 +84,7 @@ export class MyQueryHandler implements IRequestHandler<MyQuery, MyQueryResponse>
 
 ```typescript
 // my-command.command.ts
-import { IRequest } from 'angulator';
+import { IRequest } from '@angulator/angulator';
 
 export class MyCommand implements IRequest<void> {
   constructor(public readonly id: number, public readonly message: string) {}
@@ -95,7 +95,7 @@ export class MyCommand implements IRequest<void> {
 
 ```typescript
 // my-command.handler.ts
-import { IRequestHandler, RequestHandler } from 'angulator';
+import { IRequestHandler, RequestHandler } from '@angulator/angulator';
 import { MyCommand } from './my-command.command';
 
 @RequestHandler(MyCommand)
@@ -112,7 +112,7 @@ export class MyCommandHandler implements IRequestHandler<MyCommand, void> {
 
 ```typescript
 // user-created.notification.ts
-import { INotification } from 'angulator';
+import { INotification } from '@angulator/angulator';
 
 export class UserCreatedNotification implements INotification {
   constructor(public readonly userId: number, public readonly username: string) {}
@@ -123,7 +123,7 @@ export class UserCreatedNotification implements INotification {
 
 ```typescript
 // user-created.handler.ts
-import { INotificationHandler, NotificationHandler } from 'angulator';
+import { INotificationHandler, NotificationHandler } from '@angulator/angulator';
 import { UserCreatedNotification } from './user-created.notification';
 
 @NotificationHandler(UserCreatedNotification)
@@ -142,7 +142,7 @@ Inject the `Mediator` service into your components or services and use its `send
 
 ```typescript
 import { Component, OnDestroy, inject } from '@angular/core';
-import { Mediator } from 'angulator';
+import { Mediator } from '@angulator/angulator';
 import { MyQuery, MyQueryResponse } from './my-query.query';
 import { MyCommand } from './my-command.command';
 import { UserCreatedNotification } from './user-created.notification';
@@ -193,7 +193,7 @@ Implement `IPipelineBehavior` to create custom behaviors that can intercept requ
 
 ```typescript
 // logging.behavior.ts
-import { IPipelineBehavior, IRequest, RequestHandlerDelegate } from 'angulator';
+import { IPipelineBehavior, IRequest, RequestHandlerDelegate } from '@angulator/angulator';
 import { Injectable } from '@angular/core';
 
 @Injectable()
@@ -215,7 +215,7 @@ To register pipeline behaviors, provide them in your module:
 ```typescript
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { provideMediator, PIPELINE_BEHAVIORS } from 'angulator';
+import { provideMediator, PIPELINE_BEHAVIORS } from '@angulator/angulator';
 import { MyQueryHandler } from './my-query.handler';
 import { LoggingBehavior } from './logging.behavior';
 
@@ -239,7 +239,7 @@ To use the schematics, ensure you have `@angular/cli` installed globally or loca
 ### Generate a Query and its Handler
 
 ```bash
-ng generate angulator:query <name> --project=angulator
+ng generate @angulator/angulator:query <name> --project=angulator
 ```
 
 This will generate:
@@ -250,13 +250,13 @@ This will generate:
 Example:
 
 ```bash
-ng generate angulator:query GetUser --project=angulator
+ng generate @angulator/angulator:query GetUser --project=angulator
 ```
 
 ### Generate a Command and its Handler
 
 ```bash
-ng generate angulator:command <name> --project=angulator
+ng generate @angulator/angulator:command <name> --project=angulator
 ```
 
 This will generate:
@@ -267,7 +267,7 @@ This will generate:
 Example:
 
 ```bash
-ng generate angulator:command CreateUser --project=angulator
+ng generate @angulator/angulator:command CreateUser --project=angulator
 ```
 
 ## Public API
