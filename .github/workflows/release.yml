@@ -25,6 +25,31 @@ jobs:
           # Fetch all history and tags for versioning
           fetch-depth: 0
 
+      - name: Check CI Status
+        id: check_ci
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const branch = github.context.ref.replace('refs/heads/', '');
+
+            const runs = await github.rest.actions.listWorkflowRunsForRepo({
+              owner,
+              repo,
+              workflow_id: 'ci.yml', // Name of your CI workflow file
+              branch,
+              status: 'completed',
+              per_page: 1
+            });
+
+            const latestCiRun = runs.data.workflow_runs[0];
+
+            if (!latestCiRun || latestCiRun.conclusion !== 'success') {
+              core.setFailed('Latest CI run on this branch was not successful. Aborting release.');
+            } else {
+              console.log('Latest CI run was successful. Proceeding with release.');
+            }
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -51,7 +76,7 @@ jobs:
           mv angulator-angulator-001.tgz ../../angulator-angulator-001.tgz
 
       - name: Run Schematics Integration Test
-        uses: ./.github/workflows/test-schematics.yml@${{ github.sha }}
+        uses: ./.github/workflows/test-schematics.yml@${{ github.ref }}
         with:
           packed-library-path: angulator-angulator-001.tgz
 
