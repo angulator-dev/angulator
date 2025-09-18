@@ -45,16 +45,6 @@ jobs:
   schematics_test:
     needs: build_and_test
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Download packed library artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: packed-library
-
-      - name: Run Schematics Integration Test
-        uses: angulator-dev/angulator/.github/workflows/test-schematics.yml@main
-        with:
-          packed-library-path: angulator-angulator-001.tgz
+    uses: angulator-dev/angulator/.github/workflows/test-schematics.yml@main
+    with:
+      packed-library-path: angulator-angulator-001.tgz
