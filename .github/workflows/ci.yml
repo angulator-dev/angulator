@@ -40,7 +40,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: packed-library
-          path: angulator-angulator-001.tgz
+          path: angulator-angulator-0.0.1.tgz
 
   schematics_test:
     needs: build_and_test
