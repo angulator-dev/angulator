@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "outDir": "./",
+    "rootDir": "./",
+    "module": "commonjs",
+    "target": "es2018",
+    "declaration": true,
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "types": [
+      "node"
+    ]
+  },
+  "include": [
+    "index.ts"
+  ],
+  "exclude": []
+}

@@ -9,5 +9,9 @@
     "tslib": "^2.3.0"
   },
   "schematics": "./schematics/collection.json",
-  "sideEffects": false
+  "sideEffects": false,
+  "scripts": {
+    "build:schematics": "tsc -p ./schematics/command/tsconfig.json && tsc -p ./schematics/query/tsconfig.json",
+    "build": "npm run build:schematics && ng build"
+  }
 }
