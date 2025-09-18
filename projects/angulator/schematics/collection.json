@@ -3,11 +3,13 @@
   "schematics": {
     "query": {
       "description": "A schematic to generate a query and its handler.",
-      "factory": "./query/index#query"
+      "factory": "./query/index#query",
+      "schema": "./query/schema.json"
     },
     "command": {
       "description": "A schematic to generate a command and its handler.",
-      "factory": "./command/index#command"
+      "factory": "./command/index#command",
+      "schema": "./command/schema.json"
     }
   }
 }
