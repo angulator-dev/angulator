@@ -46,7 +46,9 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Increment version and push
-        run: npm version ${{ github.event.inputs.version_type }} -m "chore(release): %s" && git push --follow-tags
+        run: |
+          npm version ${{ github.event.inputs.version_type }} -m "chore(release): %s"
+          git push --follow-tags
 
       - name: Publish to npm
         run: npm publish dist/angulator
