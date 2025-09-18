@@ -1,4 +1,5 @@
 import { Provider } from '@angular/core';
+import { Mediator } from './services/mediator.service';
 import { NOTIFICATION_HANDLER_MAP, REQUEST_HANDLER_MAP } from './injection-tokens';
 import 'reflect-metadata';
 import { RequestHandlerType } from './interfaces/request-handler.interface';
@@ -34,6 +35,7 @@ export function provideMediator(
   });
 
   return [
+    Mediator,
     ...handlers,
     { provide: REQUEST_HANDLER_MAP, useValue: handlerMap },
     { provide: NOTIFICATION_HANDLER_MAP, useValue: notificationHandlerMap },

@@ -11,9 +11,7 @@ import { IPipelineBehavior } from '../interfaces/pipeline-behavior.interface';
 import { INotification } from '../interfaces/notification.interface';
 import { INotificationHandler } from '../interfaces/notification-handler.interface';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class Mediator {
   constructor(
     @Inject(REQUEST_HANDLER_MAP)
