@@ -2,6 +2,8 @@
 
 Angulator is a lightweight Angular [mediator](https://refactoring.guru/design-patterns/mediator) library, designed to simplify communication between different parts of your application using a request/response and notification/handler pattern.
 
+**Disclaimer**: This is a project I made in my spare time for fun, but I hope someone gets some use out of it. Any comments, constructive criticism, ideas, or contributions are welcome.
+
 ## Peer Dependencies
 
 This library uses decorators to automatically associate requests with handlers, which requires the `reflect-metadata` library. Please ensure you have it installed and imported in your application's polyfills.
@@ -15,8 +17,6 @@ Then, in your `src/polyfills.ts` (or `src/main.ts`):
 ```typescript
 import 'reflect-metadata';
 ```
-
-**Disclaimer**: This is a project I made in my spare time for fun, but I hope someone gets some use out of it. Any comments, constructive criticism, ideas, or contributions are welcome.
 
 ## Features
 
