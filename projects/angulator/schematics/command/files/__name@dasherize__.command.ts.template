@@ -1,4 +1,4 @@
-import { IRequest } from '../../lib/request.interface';
+import { IRequest } from '@angulator/angulator';
 
 export class <%= classify(name) %>Command implements IRequest<void> {
   constructor(public readonly id: number) {}

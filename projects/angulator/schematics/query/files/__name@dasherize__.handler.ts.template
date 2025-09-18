@@ -1,6 +1,5 @@
-import { IRequestHandler } from '../../lib/request-handler.interface';
+import { IRequestHandler, RequestHandler } from '@angulator/angulator';
 import { <%= classify(name) %>Query, <%= classify(name) %>Response } from './<%= dasherize(name) %>.query';
-import { RequestHandler } from '../../lib/request-handler.decorator';
 
 @RequestHandler(<%= classify(name) %>Query)
 export class <%= classify(name) %>Handler implements IRequestHandler<<%= classify(name) %>Query, <%= classify(name) %>Response> {

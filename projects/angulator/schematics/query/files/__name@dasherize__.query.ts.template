@@ -1,4 +1,4 @@
-import { IRequest } from '../../lib/request.interface';
+import { IRequest } from '@angulator/angulator';
 
 export class <%= classify(name) %>Query implements IRequest<<%= classify(name) %>Response> {
   constructor(public readonly id: number) {}
