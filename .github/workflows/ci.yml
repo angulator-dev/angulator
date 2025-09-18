@@ -36,6 +36,24 @@ jobs:
           npm pack
           mv angulator-angulator-0.0.1.tgz ../../angulator-angulator-0.0.1.tgz
 
+      - name: Upload packed library artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: packed-library
+          path: angulator-angulator-001.tgz
+
+  schematics_test:
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download packed library artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: packed-library
+
       - name: Run Schematics Integration Test
         uses: angulator-dev/angulator/.github/workflows/test-schematics.yml@main
         with:
