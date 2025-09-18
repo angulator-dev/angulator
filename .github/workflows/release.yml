@@ -64,6 +64,9 @@ jobs:
           npm version ${{ github.event.inputs.version_type }} -m "chore(release): %s"
           git push --follow-tags
 
+      - name: Inspect generated package.json
+        run: cat dist/angulator/package.json
+
       - name: Publish to npm
         run: npm publish dist/angulator
         env:
