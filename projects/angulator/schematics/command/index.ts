@@ -1,4 +1,13 @@
-import { Rule, SchematicContext, Tree, url, apply, template, mergeWith } from '@angular-devkit/schematics';
+import {
+  Rule,
+  SchematicContext,
+  Tree,
+  url,
+  apply,
+  template,
+  mergeWith,
+  move,
+} from '@angular-devkit/schematics';
 import { strings } from '@angular-devkit/core';
 
 export function command(_options: any): Rule {
@@ -8,8 +17,18 @@ export function command(_options: any): Rule {
     const sourceParametrizedTemplates = apply(sourceTemplates, [
       template({
         ..._options,
-        ...strings
-      })
+        ...strings,
+      }),
+      // Custom rule to rename files
+      (tree: Tree) => {
+        tree.visit((path) => {
+          if (path.endsWith('.template')) {
+            const newPath = path.slice(0, -'.template'.length);
+            tree.rename(path, newPath);
+          }
+        });
+        return tree;
+      },
     ]);
 
     return mergeWith(sourceParametrizedTemplates)(tree, _context);
