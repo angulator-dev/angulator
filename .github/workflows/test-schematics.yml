@@ -55,4 +55,5 @@ jobs:
           # Run the schematic (assuming 'command' schematic exists)
           ng generate @angulator/angulator:command my-command
 
-          ls -r
+          cat my-command.handler.ts.template
+          cat my-command.command.ts.template
