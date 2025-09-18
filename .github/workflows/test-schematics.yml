@@ -55,6 +55,4 @@ jobs:
           # Run the schematic (assuming 'command' schematic exists)
           ng generate @angulator/angulator:command my-command
 
-          # Verify the schematic created a file (adjust this based on what 'command' schematic actually generates)
-          # For example, if it creates src/app/my-command/my-command.component.ts
-          ls src/app/my-command/my-command.component.ts
+          ls -r
