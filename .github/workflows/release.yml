@@ -9,9 +9,9 @@ on:
         default: 'patch'
         type: choice
         options:
-          - patch
-          - minor
-          - major
+        - patch
+        - minor
+        - major
 
 jobs:
   release:
@@ -31,9 +31,6 @@ jobs:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Set repository URL in package.json
-        run: npm pkg set repository.url="https://github.com/${{ github.repository }}.git"
-
       - name: Install Dependencies
         run: npm ci
 
@@ -49,23 +46,13 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global url."https://github.com/".insteadOf "git@github.com:"
 
-      - name: Commit package file changes
-        run: |
-          git add package.json package-lock.json
-          # Commit only if there are staged changes
-          if git diff --staged --quiet; then
-            echo "No package file changes to commit"
-          else
-            git commit -m "ci: update package files for release"
-          fi
-
       - name: Increment version and push
         run: |
           npm version ${{ github.event.inputs.version_type }} -m "chore(release): %s"
           git push --follow-tags
 
-      - name: Inspect generated package.json
-        run: cat dist/angulator/package.json
+      - name: Set repository URL in distributable package.json
+        run: npm pkg --prefix dist/angulator set repository.url="https://github.com/${{ github.repository }}.git"
 
       - name: Publish to npm
         run: npm publish dist/angulator
