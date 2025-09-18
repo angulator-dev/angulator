@@ -44,5 +44,8 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "ng-packagr": "^20.3.0",
     "typescript": "~5.9.2"
+  },
+  "repository": {
+    "url": "https://github.com/angulator-dev/angulator.git"
   }
 }
