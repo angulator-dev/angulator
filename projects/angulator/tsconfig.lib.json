@@ -10,6 +10,6 @@
     "inlineSourceMap": true,
     "types": []
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "schematics/**/*.ts"],
   "exclude": ["**/*.spec.ts"]
 }
