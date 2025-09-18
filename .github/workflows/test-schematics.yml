@@ -20,6 +20,11 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Download packed library artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: packed-library
+
       - name: Create temporary test environment
         run: |
           # Create a temporary directory for the test project outside the workspace
