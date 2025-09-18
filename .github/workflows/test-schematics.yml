@@ -26,11 +26,11 @@ jobs:
           mkdir -p /tmp/schematic-test-env
           cd /tmp/schematic-test-env
 
-          # Install Angular CLI globally for the test project
+          # Install Angular CLI
           npm install -g @angular/cli
 
           # Create a new Angular project
-          ng new schematic-app --no-create-application --skip-git --skip-install --collection=@angular/cli
+          ng new schematic-app --no-create-application --skip-git --skip-install
 
           # Navigate into the new project
           cd schematic-app
