@@ -31,13 +31,12 @@ jobs:
 
       - name: Build and Pack Library for Schematics Test
         run: |
-          ls
-          cd projects/angulator
-          npm run build
+          ng build angulator
+          cd dist/angulator
           npm pack
-          mv angulator-angulator-0.0.1.tgz ../../../angulator/angulator-angulator-0.0.1.tgz
+          mv angulator-angulator-0.0.1.tgz ../../angulator-angulator-0.0.1.tgz
 
       - name: Run Schematics Integration Test
         uses: ./.github/workflows/test-schematics.yml
         with:
-          packed-library-path: angulator/angulator-angulator-0.0.1.tgz
+          packed-library-path: angulator-angulator-001.tgz
