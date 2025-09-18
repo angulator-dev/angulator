@@ -31,7 +31,8 @@ jobs:
 
       - name: Build and Pack Library for Schematics Test
         run: |
-          cd angulator/projects/angulator
+          ls
+          cd projects/angulator
           npm run build
           npm pack
           mv angulator-angulator-0.0.1.tgz ../../../angulator/angulator-angulator-0.0.1.tgz
