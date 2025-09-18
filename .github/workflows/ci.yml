@@ -46,4 +46,4 @@ jobs:
     needs: build_and_test
     uses: angulator-dev/angulator/.github/workflows/test-schematics.yml@main
     with:
-      packed-library-path: angulator-angulator-001.tgz
+      packed-library-path: angulator-angulator-0.0.1.tgz
