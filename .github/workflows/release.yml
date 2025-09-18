@@ -38,9 +38,7 @@ jobs:
         run: cp README.md projects/angulator/
 
       - name: Build library and schematics
-        run: |
-          npm run build -- --configuration production
-          (cd projects/angulator && npm run build:schematics)
+        run: (cd projects/angulator && npm run build)
 
       - name: Test
         run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadless
