@@ -54,6 +54,9 @@ jobs:
       - name: Set repository URL in distributable package.json
         run: npm pkg --prefix dist/angulator set repository.url="https://github.com/${{ github.repository }}.git"
 
+      - name: DEBUG - Inspect final package.json
+        run: cat dist/angulator/package.json
+
       - name: Publish to npm
         run: npm publish dist/angulator
         env:
