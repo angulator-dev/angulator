@@ -1,20 +1,18 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "Command",
-  "title": "Command Schematic",
+  "$id": "Query",
+  "title": "Query Schematic",
   "type": "object",
   "properties": {
     "name": {
       "type": "string",
-      "description": "The name of the command.",
-      "x-prompt": "What name would you like to use for the command?",
+      "description": "The name of the Query.",
+      "x-prompt": "What name would you like to use for the Query?",
       "$default": {
         "$source": "argv",
         "index": 0
       }
     }
   },
-  "required": [
-    "name"
-  ]
+  "required": ["name"]
 }
